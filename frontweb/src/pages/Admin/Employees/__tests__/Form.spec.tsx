@@ -6,6 +6,7 @@ import { Router } from 'react-router-dom';
 import { server } from "./fixtures";
 import selectEvent from "react-select-event";
 import { ToastContainer } from 'react-toastify';
+import { act } from "react-dom/test-utils";
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -66,16 +67,16 @@ describe('Employee form create tests', () => {
             </Router>
         );
     
-        const emailInput = screen.getByTestId("email");
-        userEvent.type(emailInput, 'abel@gmail.');
-
-        const submitButton = screen.getByRole('button', { name: /salvar/i})
-        userEvent.click(submitButton);
-
         await waitFor(() => {
+            const emailInput = screen.getByTestId("email");
+            userEvent.type(emailInput, 'abel@gmail.');
+    
+            const submitButton = screen.getByRole('button', { name: /salvar/i})
+            userEvent.click(submitButton);
+    
             const message = screen.getByText('Email inválido');
             expect(message).toBeInTheDocument();
-        });
+        });    
     });
 
     test('should clear error messages when filling out the form', async () => {
