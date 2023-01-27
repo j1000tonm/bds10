@@ -121,6 +121,7 @@ const Form = () => {
                       getOptionLabel={(department: Department) => department.name}
                       getOptionValue={(department: Department) => String(department.id)}
                       inputId="department"
+                      placeholder="Departamento"
                     />  
                   )}
                 />
